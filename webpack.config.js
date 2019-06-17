@@ -1,4 +1,4 @@
-const { resolve } = require('path')
+const { resolve, join } = require('path')
 
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
@@ -20,5 +20,11 @@ module.exports = {
         }
       }
     }]
+  },
+  resolve: {
+    alias: {
+      components: join(__dirname, 'client/components'),
+      stores: join(__dirname, 'client/stores')
+    }
   }
 }
