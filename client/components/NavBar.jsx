@@ -1,7 +1,8 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Box, Heading } from 'grommet'
 
-const Chat = () => (
+const NavBar = ({ title }) => (
   <Box
     tag='header'
     direction='row'
@@ -13,9 +14,13 @@ const Chat = () => (
     style={{ zIndex: 1 }}
   >
     <Heading level='3' margin='none'>
-      The Question Box
+      {title}
     </Heading>
   </Box>
 )
 
-export default Chat
+NavBar.propTypes = {
+  title: PropTypes.string
+}
+
+export default NavBar

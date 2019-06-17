@@ -24,6 +24,7 @@ module.exports = {
   resolve: {
     alias: {
       components: join(__dirname, 'client/components'),
+      containers: join(__dirname, 'client/containers'),
       stores: join(__dirname, 'client/stores')
     }
   }
