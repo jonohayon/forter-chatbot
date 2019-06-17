@@ -16,7 +16,14 @@ module.exports = {
       use: {
         loader: 'babel-loader',
         options: {
-          presets: ['@babel/preset-env', '@babel/preset-react']
+          presets: [
+            ['@babel/preset-env', {
+              targets: { browsers: ['last 3 chrome versions'] },
+              useBuiltIns: 'usage'
+            }],
+            '@babel/preset-react'
+          ],
+          plugins: ['@babel/plugin-transform-runtime']
         }
       }
     }]
@@ -25,7 +32,8 @@ module.exports = {
     alias: {
       components: join(__dirname, 'client/components'),
       containers: join(__dirname, 'client/containers'),
-      reducers: join(__dirname, 'client/reducers')
+      reducers: join(__dirname, 'client/reducers'),
+      actions: join(__dirname, 'client/actions')
     }
   }
 }
