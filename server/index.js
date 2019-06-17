@@ -1,7 +1,13 @@
 const express = require('express')
 const { join } = require('path')
 const { json } = require('body-parser')
-const { createMessage, getNMessages, listenForMessages } = require('./messages')
+const {
+  createMessage,
+  getNMessages,
+  getLastMessage,
+  listenForMessages,
+  stopListening
+} = require('./messages')
 const app = express()
 
 app.use(json())
