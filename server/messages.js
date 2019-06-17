@@ -25,8 +25,12 @@ const listenForMessages = handler => {
   return subClient.subscribe('updates')
 }
 
+const stopListening = () => subClient.unsubscribe()
+
 module.exports = {
   createMessage,
   getNMessages,
-  listenForMessages
+  getLastMessage,
+  listenForMessages,
+  stopListening
 }
