@@ -31,7 +31,7 @@ app.get('/messages', (req, res, next) => {
 
   listenForMessages(() =>
     getLastMessage()
-      .then(message => res.write(`data: ${JSON.stringify(message)}\n\n`))
+      .then(message => res.write(`event: message\ndata: ${JSON.stringify(message)}\n\n`))
       .catch(err => {
         stopListening()
         return next(err)
