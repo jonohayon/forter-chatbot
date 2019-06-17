@@ -1,7 +1,7 @@
 const express = require('express')
 const { join } = require('path')
 const { json } = require('body-parser')
-const { createMessage, getNMessages } = require('./messages')
+const { createMessage, getNMessages, listenForMessages } = require('./messages')
 const app = express()
 
 app.use(json())
@@ -16,14 +16,19 @@ app.post('/message', (req, res, next) => {
     .catch(next)
 })
 
-app.get('/messages', (req, res, next) => {
-  return getNMessages(5)
-    .then(res.send)
+app.get('/messages/:n', (req, res, next) => {
+  console.log(req.params.n)
+  return getNMessages(req.params.n)
+    .then(messages => res.send({ status: 'ok', messages }))
     .catch(next)
 })
 
 app.use((err, req, res) => {
-  return res.status(err.code || 500).send(err)
+  return res.status(err.code || 500).send({
+    status: 'not-ok',
+    message: err.message,
+    stack: err.stack
+  })
 })
 
 const port = process.env.PORT || 8080
