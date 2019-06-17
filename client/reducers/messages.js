@@ -3,11 +3,6 @@ export const initialState = {
   isInitializing: false
 }
 
-export const createMessage = (author, body) => ({
-  author,
-  body
-})
-
 export default (state = initialState, action) => {
   switch (action.type) {
     case 'REQUEST_MESSAGES':
