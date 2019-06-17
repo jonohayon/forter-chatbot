@@ -2,9 +2,12 @@
   "name": "forter-chatbot",
   "version": "1.0.0",
   "description": "A chatbot built as a homework assignment for Forter",
-  "main": "index.js",
   "scripts": {
-    "test": "jes"
+    "lint": "eslint --ext .jsx,.js --fix",
+    "test": "npm run lint && jest",
+    "run": "node server/index.js",
+    "build": "webpack",
+    "watch": "webpack --colors --watch --progress"
   },
   "repository": {
     "type": "git",
