@@ -9,7 +9,6 @@ export const receiveMessages = messages => ({
 
 export const getMessages = () => async dispatch => {
   dispatch(requestMessages)
-  const numOfMessages = await axios.get('/messages/length')
-  const messages = await axios.get(`/messages/${numOfMessages}`)
+  const messages = await axios.get('/messages/-1')
   dispatch(receiveMessages(messages))
 }
