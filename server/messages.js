@@ -16,6 +16,8 @@ const createMessage = (body, userId) => rpush('messages', JSON.stringify({ body,
 
 const getNMessages = n => lrange('messages', 0, n).then(messages => messages.map(m => JSON.parse(m)))
 
+const getLastMessage = () => lrange('messages', -2, -1).then(messages => JSON.parse(messages[0]))
+
 const listenForMessages = handler => {
   subClient.on('message', (channel, message) => {
     if (channel === 'updates' && message === 'message') handler()
