@@ -9,6 +9,6 @@ export const receiveMessages = messages => ({
 
 export const getMessages = () => async dispatch => {
   dispatch(requestMessages)
-  const messages = await axios.get('/messages/-1')
-  dispatch(receiveMessages(messages))
+  const { data } = await axios.get('/messages/-1')
+  dispatch(receiveMessages(data.messages))
 }
