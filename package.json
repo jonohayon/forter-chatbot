@@ -1,0 +1,19 @@
+{
+  "name": "forter-chatbot",
+  "version": "1.0.0",
+  "description": "A chatbot built as a homework assignment for Forter",
+  "main": "index.js",
+  "scripts": {
+    "test": "jes"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonohayon/forter-chatbot.git"
+  },
+  "author": "Jonathan Ohayon <me@jonathano.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jonohayon/forter-chatbot/issues"
+  },
+  "homepage": "https://github.com/jonohayon/forter-chatbot#readme"
+}
