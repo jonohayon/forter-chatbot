@@ -1,8 +1,10 @@
 import React from 'react'
 import { render } from 'react-dom'
+import { Provider } from 'react-redux'
 import { Grommet } from 'grommet'
 
 import Chat from 'containers/Chat.jsx'
+import store from './store'
 
 const theme = {
   global: {
@@ -13,9 +15,11 @@ const theme = {
 }
 
 const Application = () => (
-  <Grommet theme={theme} full>
-    <Chat />
-  </Grommet>
+  <Provider store={store}>
+    <Grommet theme={theme} full>
+      <Chat />
+    </Grommet>
+  </Provider>
 )
 
 render(<Application />, document.getElementById('root'))
