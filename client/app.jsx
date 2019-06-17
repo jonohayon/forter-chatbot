@@ -2,7 +2,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Grommet } from 'grommet'
 
-import Chat from 'components/Chat.jsx'
+import Chat from 'containers/Chat.jsx'
 
 const theme = {
   global: {
@@ -13,7 +13,7 @@ const theme = {
 }
 
 const Application = () => (
-  <Grommet theme={theme}>
+  <Grommet theme={theme} full>
     <Chat />
   </Grommet>
 )
