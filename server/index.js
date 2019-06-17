@@ -22,6 +22,28 @@ app.post('/message', (req, res, next) => {
     .catch(next)
 })
 
+app.get('/messages', (req, res, next) => {
+  res.status(200).set({
+    'connection': 'keep-alive',
+    'cache-control': 'no-cache',
+    'content-type': 'text/event-stream'
+  })
+
+  listenForMessages(() =>
+    getLastMessage()
+      .then(message => res.write(`data: ${JSON.stringify(message)}\n\n`))
+      .catch(err => {
+        stopListening()
+        return next(err)
+      })
+  )
+
+  req.on('close', () => {
+    stopListening()
+    return res.end()
+  })
+})
+
 app.get('/messages/:n', (req, res, next) => {
   console.log(req.params.n)
   return getNMessages(req.params.n)
