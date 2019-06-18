@@ -42,5 +42,7 @@ Message.defaultProps = {
 }
 
 export default styled(Message)`
-  min-height: 48px;
+  @media (min-width: 768px) {
+    min-height: 48px;
+  }
 `

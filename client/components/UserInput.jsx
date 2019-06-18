@@ -38,6 +38,6 @@ UserInput.propTypes = {
 
 export default styled(UserInput)`
   @media (min-width: 768px) {
-    margin: 0 5px 5px 5px;
+    margin: 0 5px 10px 5px;
   }
 `
