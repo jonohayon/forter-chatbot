@@ -4,10 +4,16 @@ export const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case 'ONCHANGE':
+    case 'CHANGE':
       return {
         ...state,
         text: action.event.target.value
+      }
+
+    case 'SUBMIT':
+      return {
+        ...state,
+        text: ''
       }
 
     default:

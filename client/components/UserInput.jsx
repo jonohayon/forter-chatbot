@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Box, TextInput } from 'grommet'
 
-const UserInput = ({ onChange, text, className }) => (
+const noop = () => {}
+
+const UserInput = ({ onChange, onSubmit, text, className }) => (
   <div>
     <Box
       elevation='large'
@@ -15,6 +17,7 @@ const UserInput = ({ onChange, text, className }) => (
         plain
         placeholder='Ask a question...'
         onChange={onChange}
+        onKeyUp={({ key }) => key === 'Enter' ? onSubmit(text) : noop()}
       />
     </Box>
   </div>
@@ -23,7 +26,8 @@ const UserInput = ({ onChange, text, className }) => (
 UserInput.propTypes = {
   className: PropTypes.string,
   text: PropTypes.string,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  onSubmit: PropTypes.func
 }
 
 export default styled(UserInput)`
