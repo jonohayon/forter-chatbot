@@ -4,26 +4,47 @@ import NavBar from 'components/NavBar.jsx'
 import MessageList from 'components/MessageList.jsx'
 import { getMessages } from 'actions/messages.js'
 import { connect } from 'react-redux'
-import { Box } from 'grommet'
+import { Box, TextInput } from 'grommet'
 
 class Chat extends Component {
+  constructor (props) {
+    super(props)
+    this.state = { input: '' }
+  }
+
   componentDidMount () {
     this.props.getMessages()
   }
 
   render () {
     const { messages } = this.props
+    const { text } = this.state
 
     return (
-      <Box fill>
+      <Box fill background='light-3'>
         <NavBar title='The Question Box' />
 
         <Box
           flex
-          align='center'
-          background='light-3'
+          width='large'
+          direction='column'
+          alignSelf='center'
         >
           <MessageList messages={messages} />
+
+          <div>
+            <Box
+              elevation='large'
+            >
+              <TextInput
+                value={text}
+                size='medium'
+                plain
+                placeholder='Ask a question...'
+                onChange={event => this.setState({ text: event.target.value })}
+              />
+            </Box>
+          </div>
         </Box>
       </Box>
     )
