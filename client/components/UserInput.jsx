@@ -1,39 +1,29 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Box, TextInput } from 'grommet'
 
-class UserInput extends Component {
-  constructor (props) {
-    super(props)
-    this.state = { input: '' }
-  }
-
-  render () {
-    const { className } = this.props
-    const { text } = this.state
-
-    return (
-      <div>
-        <Box
-          elevation='large'
-          className={className}
-        >
-          <TextInput
-            value={text}
-            size='medium'
-            plain
-            placeholder='Ask a question...'
-            onChange={event => this.setState({ text: event.target.value })}
-          />
-        </Box>
-      </div>
-    )
-  }
-}
+const UserInput = ({ setText, text, className }) => (
+  <div>
+    <Box
+      elevation='large'
+      className={className}
+    >
+      <TextInput
+        value={text}
+        size='medium'
+        plain
+        placeholder='Ask a question...'
+        onChange={setText}
+      />
+    </Box>
+  </div>
+)
 
 UserInput.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
+  text: PropTypes.string,
+  setText: PropTypes.func
 }
 
 export default styled(UserInput)`
