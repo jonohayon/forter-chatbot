@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import NavBar from 'components/NavBar.jsx'
 import MessageList from 'components/MessageList.jsx'
 import UserInput from 'components/UserInput.jsx'
-import { getMessages } from 'actions/messages.js'
+import { getMessages, subscribeToMessages } from 'actions/messages.js'
 import { onChange as onInputChange, postQuestion } from 'actions/input.js'
 import { connect } from 'react-redux'
 import { Box } from 'grommet'
@@ -11,6 +11,7 @@ import { Box } from 'grommet'
 class Chat extends Component {
   componentDidMount () {
     this.props.getMessages()
+    this.props.subscribeToMessages()
   }
 
   render () {
@@ -48,6 +49,7 @@ Chat.propTypes = {
   messages: PropTypes.arrayOf(PropTypes.object).isRequired,
   currentText: PropTypes.string,
   getMessages: PropTypes.func.isRequired,
+  subscribeToMessages: PropTypes.func.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onInputSubmit: PropTypes.func.isRequired
 }
@@ -59,6 +61,7 @@ const mapStateToProps = ({ messages, input }) => ({
 
 const actionCreators = {
   getMessages,
+  subscribeToMessages,
   onInputChange,
   onInputSubmit: postQuestion
 }
