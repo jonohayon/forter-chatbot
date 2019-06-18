@@ -2,23 +2,18 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import NavBar from 'components/NavBar.jsx'
 import MessageList from 'components/MessageList.jsx'
+import UserInput from 'components/UserInput.jsx'
 import { getMessages } from 'actions/messages.js'
 import { connect } from 'react-redux'
-import { Box, TextInput } from 'grommet'
+import { Box } from 'grommet'
 
 class Chat extends Component {
-  constructor (props) {
-    super(props)
-    this.state = { input: '' }
-  }
-
   componentDidMount () {
     this.props.getMessages()
   }
 
   render () {
     const { messages } = this.props
-    const { text } = this.state
 
     return (
       <Box fill background='light-3'>
@@ -32,19 +27,7 @@ class Chat extends Component {
         >
           <MessageList messages={messages} />
 
-          <div>
-            <Box
-              elevation='large'
-            >
-              <TextInput
-                value={text}
-                size='medium'
-                plain
-                placeholder='Ask a question...'
-                onChange={event => this.setState({ text: event.target.value })}
-              />
-            </Box>
-          </div>
+          <UserInput />
         </Box>
       </Box>
     )
