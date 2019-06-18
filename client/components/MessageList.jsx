@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Message from 'components/Message.jsx'
+import styled from 'styled-components'
 import { Box, InfiniteScroll } from 'grommet'
 
 const createMessageData = messages => {
@@ -20,8 +21,8 @@ const createMessageData = messages => {
       message,
       firstMessage: userChange,
       lastMessage: false,
-      isOwn: false,
-      isBot: false,
+      isOwn: false, // TODO - Implement isOwn
+      isBot: false, // TODO - Implement isBot
       key: i
     })
   }
@@ -31,8 +32,13 @@ const createMessageData = messages => {
   return toRender
 }
 
+const Container = styled(Box)`
+  display: block;
+  &::-webkit-scrollbar { width: 0 !important }
+`
+
 const MessageList = ({ messages }) => (
-  <Box
+  <Container
     pad={{ top: 'small', horizontal: 'small' }}
     width='large'
     overflow={{ horizontal: 'hidden', vertical: 'auto' }}
@@ -45,7 +51,7 @@ const MessageList = ({ messages }) => (
         {(mprops) => <Message {...mprops} />}
       </InfiniteScroll>
     }
-  </Box>
+  </Container>
 )
 
 MessageList.propTypes = {
