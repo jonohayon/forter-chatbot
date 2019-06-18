@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Box, TextInput } from 'grommet'
 
-const UserInput = ({ setText, text, className }) => (
+const UserInput = ({ onChange, text, className }) => (
   <div>
     <Box
       elevation='large'
@@ -14,7 +14,7 @@ const UserInput = ({ setText, text, className }) => (
         size='medium'
         plain
         placeholder='Ask a question...'
-        onChange={setText}
+        onChange={onChange}
       />
     </Box>
   </div>
@@ -23,7 +23,7 @@ const UserInput = ({ setText, text, className }) => (
 UserInput.propTypes = {
   className: PropTypes.string,
   text: PropTypes.string,
-  setText: PropTypes.func
+  onChange: PropTypes.func
 }
 
 export default styled(UserInput)`

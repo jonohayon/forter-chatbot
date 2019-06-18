@@ -7,7 +7,7 @@ export default (state = initialState, action) => {
     case 'ONCHANGE':
       return {
         ...state,
-        text: action.target.value
+        text: action.event.target.value
       }
 
     default:
