@@ -1,10 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Bubble from 'components/Bubble.jsx'
+import styled from 'styled-components'
 import { Box, Text } from 'grommet'
 
-const Message = ({ message, author, isOwn, isBot, lastMessage, firstMessage }) => (
-  <Box direction='column'>
+const Message = ({ message, author, isOwn, isBot, lastMessage, firstMessage, className }) => (
+  <Box
+    direction='column'
+    justify='center'
+    align={isOwn ? 'end' : 'start'}
+    margin={{ vertical: '1px' }}
+    className={className}
+  >
     {
       firstMessage &&
       <Text size='small' color='dark-5' margin={{ top: '2px', bottom: '1px' }} alignSelf={isOwn ? 'end' : 'start'}>
@@ -23,7 +30,8 @@ Message.propTypes = {
   isOwn: PropTypes.bool,
   isBot: PropTypes.bool,
   lastMessage: PropTypes.bool,
-  firstMessage: PropTypes.bool
+  firstMessage: PropTypes.bool,
+  className: PropTypes.string
 }
 
 Message.defaultProps = {
@@ -33,4 +41,6 @@ Message.defaultProps = {
   firstMessage: false
 }
 
-export default Message
+export default styled(Message)`
+  min-height: 48px;
+`

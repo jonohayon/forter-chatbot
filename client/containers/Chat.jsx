@@ -4,7 +4,7 @@ import NavBar from 'components/NavBar.jsx'
 import Message from 'components/Message.jsx'
 import { getMessages } from 'actions/messages.js'
 import { connect } from 'react-redux'
-import { Box } from 'grommet'
+import { Box, InfiniteScroll } from 'grommet'
 
 const createMessageData = messages => {
   const toRender = []; let currentUser = ''
@@ -47,19 +47,22 @@ class Chat extends Component {
         <NavBar title='The Question Box' />
 
         <Box
-          direction='row'
           flex
-          justify='center'
+          align='center'
           background='light-3'
-          overflow={{ horizontal: 'hidden' }}
         >
           <Box
+            pad={{ top: 'small', horizontal: 'small' }}
             width='large'
-            pad='small'
+            overflow={{ horizontal: 'hidden', vertical: 'auto' }}
           >
             {
               messages.length > 0 &&
-            createMessageData(messages).map(d => <Message {...d} />)
+              <InfiniteScroll
+                items={createMessageData(messages)}
+              >
+                {(mprops) => <Message {...mprops} />}
+              </InfiniteScroll>
             }
           </Box>
         </Box>

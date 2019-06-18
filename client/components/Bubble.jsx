@@ -14,7 +14,6 @@ const Bubble = ({ children, isOwn, isBot, className }) => (
     className={className}
     background={colorForProp(isOwn, isBot)}
     pad='small'
-    margin={{ vertical: '1px' }}
     basis='auto'
   >
     {children}
