@@ -4,6 +4,10 @@ import Message from 'components/Message.jsx'
 import styled from 'styled-components'
 import { Box, InfiniteScroll } from 'grommet'
 
+/**
+ * Constructs the props for the individual Message nodes.
+ * It's not written in the most functional way, and probably could be written using reduce, but it's working pretty good.
+ */
 const createMessageData = (messages, ownUser) => {
   const toRender = []; let currentUser = ''
   for (let i = 0; i < messages.length; i++) {
