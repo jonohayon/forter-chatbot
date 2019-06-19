@@ -4,8 +4,7 @@ const { json } = require('body-parser')
 const {
   createMessage,
   getNMessages,
-  listenForMessages,
-  stopListening
+  listenForMessages
 } = require('./messages')
 const app = express()
 
@@ -28,7 +27,7 @@ app.get('/messages', (req, res, next) => {
     'content-type': 'text/event-stream'
   })
 
-  listenForMessages(message => res.write(`event: message\ndata: ${message}\n\n`))
+  const stopListening = listenForMessages(message => res.write(`event: message\ndata: ${message}\n\n`))
 
   req.on('close', () => {
     stopListening()
