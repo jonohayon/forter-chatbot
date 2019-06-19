@@ -16,17 +16,9 @@ class Chat extends Component {
       setUser,
       messages,
       currentText,
-      getMessages,
       onInputChange,
-      postQuestion,
-      subscribeToMessages,
-      messagesInitializing
+      postQuestion
     } = this.props
-
-    if (ownUser && !messagesInitializing) {
-      getMessages()
-      subscribeToMessages()
-    }
 
     return (
       <Box fill background='light-3'>
@@ -56,9 +48,6 @@ Chat.propTypes = {
   messages: PropTypes.arrayOf(PropTypes.object).isRequired,
   currentText: PropTypes.string,
   ownUser: PropTypes.string,
-  messagesInitializing: PropTypes.bool,
-  getMessages: PropTypes.func.isRequired,
-  subscribeToMessages: PropTypes.func.isRequired,
   onInputChange: PropTypes.func.isRequired,
   postQuestion: PropTypes.func.isRequired,
   setUser: PropTypes.func.isRequired
@@ -72,13 +61,13 @@ const mapStateToProps = ({ messages, input, user }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  getMessages: () => dispatch(getMessages()),
-  subscribeToMessages: () => dispatch(subscribeToMessages()),
   onInputChange: event => dispatch(onInputChange(event)),
   postQuestion: (text, user) => dispatch(postQuestion(text, user)),
   setUser: (user, _) => {
     dispatch(setUser(user))
     dispatch(onInputSubmit)
+    dispatch(getMessages())
+    dispatch(subscribeToMessages())
   }
 })
 
