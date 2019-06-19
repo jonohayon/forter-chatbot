@@ -45,7 +45,6 @@ app.get('/messages', (req, res, next) => {
 })
 
 app.get('/messages/:n', (req, res, next) => {
-  console.log(req.params.n)
   return getNMessages(req.params.n)
     .then(messages => res.send({ status: 'ok', messages }))
     .catch(next)
