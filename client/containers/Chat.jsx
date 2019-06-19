@@ -22,7 +22,7 @@ class Chat extends Component {
 
     return (
       <Box fill background='light-3'>
-        <NavBar title='The Question Box' />
+        <NavBar title='The Soup Nazi Online' />
 
         <Box
           flex
