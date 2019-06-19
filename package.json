@@ -7,7 +7,7 @@
     "test": "npm run lint && jest",
     "start": "node server/index.js",
     "dev": "nodemon server/index.js",
-    "build": "webpack",
+    "build": "NODE_ENV=production webpack",
     "watch": "webpack --colors --watch --progress"
   },
   "repository": {
