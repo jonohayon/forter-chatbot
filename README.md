@@ -3,7 +3,7 @@ Simple "Chatbot" assignment
 
 > A simple "chatbot" written as a recruitement assignment to join Forter
 
-`GIF`
+![Demo GIF](dist/demo.gif)
 
 ## Requirements
 Node.js (any version above 7 will probably be OK) and Redis.
