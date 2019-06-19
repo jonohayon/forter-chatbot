@@ -2,9 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Message from 'components/Message.jsx'
 import styled from 'styled-components'
+import { BOT_USER } from '../bot'
 import { Box, InfiniteScroll } from 'grommet'
-
-const BOT_USER = 'Soup Nazi'
 
 /**
  * Constructs the props for the individual Message nodes.
@@ -29,7 +28,7 @@ const createMessageData = (messages, ownUser) => {
       lastMessage: false,
       isOwn: user === ownUser,
       isBot: user === BOT_USER,
-      image: message === 'soup.webp' && 'soup.webp',
+      image: message === 'soup.webp' ? 'soup.webp' : '',
       key: i
     })
   }

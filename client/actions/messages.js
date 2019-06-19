@@ -1,4 +1,6 @@
 import axios from 'axios'
+import { BOT_USER } from '../bot'
+import { setBotMode } from './user'
 
 export const requestMessages = { type: 'REQUEST_MESSAGES' }
 
@@ -23,6 +25,7 @@ export const subscribeToMessages = () => dispatch => {
 
   source.addEventListener('message', event => {
     const data = JSON.parse(event.data)
+    if (data.body === 'soup.webp' && data.userId === BOT_USER) dispatch(setBotMode(false))
     dispatch(newMessage(data))
   })
 }

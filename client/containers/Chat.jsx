@@ -5,7 +5,7 @@ import MessageList from 'components/MessageList.jsx'
 import UserInput from 'components/UserInput.jsx'
 import { getMessages, subscribeToMessages } from 'actions/messages.js'
 import { onChange as onInputChange, onSubmit as onInputSubmit, postQuestion } from 'actions/input.js'
-import { setUser } from 'actions/user.js'
+import { setUser, setBotMode } from 'actions/user.js'
 import { connect } from 'react-redux'
 import { Box } from 'grommet'
 
@@ -17,7 +17,8 @@ class Chat extends Component {
       messages,
       currentText,
       onInputChange,
-      postQuestion
+      postQuestion,
+      botMode
     } = this.props
 
     return (
@@ -36,7 +37,7 @@ class Chat extends Component {
             text={currentText}
             user={ownUser}
             onChange={onInputChange}
-            onSubmit={ownUser ? postQuestion : setUser}
+            onSubmit={ownUser ? postQuestion(botMode) : setUser}
           />
         </Box>
       </Box>
@@ -50,19 +51,25 @@ Chat.propTypes = {
   ownUser: PropTypes.string,
   onInputChange: PropTypes.func.isRequired,
   postQuestion: PropTypes.func.isRequired,
-  setUser: PropTypes.func.isRequired
+  setUser: PropTypes.func.isRequired,
+  botMode: PropTypes.bool
 }
 
 const mapStateToProps = ({ messages, input, user }) => ({
   messages: messages.messages,
   currentText: input.text,
   messagesInitializing: messages.isInitializing,
-  ownUser: user.user
+  ownUser: user.user,
+  botMode: user.botMode
 })
 
 const mapDispatchToProps = dispatch => ({
   onInputChange: event => dispatch(onInputChange(event)),
-  postQuestion: (text, user) => dispatch(postQuestion(text, user)),
+  postQuestion: botMode => (text, user) => {
+    const shouldEnableBot = /^Hello$/g.test(text)
+    if (shouldEnableBot) dispatch(setBotMode(true))
+    dispatch(postQuestion(text, user, shouldEnableBot || botMode))
+  },
   setUser: (user, _) => {
     dispatch(setUser(user))
     dispatch(onInputSubmit)
