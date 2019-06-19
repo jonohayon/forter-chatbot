@@ -23,7 +23,7 @@ const createMessageData = (messages, ownUser) => {
 
     toRender.push({
       author: user,
-      message,
+      message: message !== 'soup.webp' ? message : '',
       firstMessage: userChange,
       lastMessage: false,
       isOwn: user === ownUser,

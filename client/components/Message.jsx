@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Bubble from 'components/Bubble.jsx'
 import { Box, Text } from 'grommet'
 
-const Message = ({ message, author, isOwn, isBot, lastMessage, firstMessage, className }) => (
+const Message = ({ message, author, isOwn, isBot, lastMessage, firstMessage, image, className }) => (
   <Box
     direction='column'
     justify='center'
@@ -17,7 +17,7 @@ const Message = ({ message, author, isOwn, isBot, lastMessage, firstMessage, cla
         {author}
       </Text>
     }
-    <Bubble isOwn={isOwn} isBot={isBot} continues={!lastMessage}>
+    <Bubble isOwn={isOwn} isBot={isBot} continues={!lastMessage} image={image}>
       {message}
     </Bubble>
   </Box>
@@ -30,7 +30,8 @@ Message.propTypes = {
   isBot: PropTypes.bool,
   lastMessage: PropTypes.bool,
   firstMessage: PropTypes.bool,
-  className: PropTypes.string
+  className: PropTypes.string,
+  image: PropTypes.string
 }
 
 Message.defaultProps = {
