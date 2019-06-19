@@ -4,6 +4,8 @@ import Message from 'components/Message.jsx'
 import styled from 'styled-components'
 import { Box, InfiniteScroll } from 'grommet'
 
+const BOT_USER = 'Soup Nazi'
+
 /**
  * Constructs the props for the individual Message nodes.
  * It's not written in the most functional way, and probably could be written using reduce, but it's working pretty good.
@@ -26,7 +28,8 @@ const createMessageData = (messages, ownUser) => {
       firstMessage: userChange,
       lastMessage: false,
       isOwn: user === ownUser,
-      isBot: false, // TODO - Implement isBot
+      isBot: user === BOT_USER,
+      image: message === 'soup.webp' && 'soup.webp',
       key: i
     })
   }

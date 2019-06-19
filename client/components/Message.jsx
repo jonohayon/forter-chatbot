@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Bubble from 'components/Bubble.jsx'
-import styled from 'styled-components'
 import { Box, Text } from 'grommet'
 
 const Message = ({ message, author, isOwn, isBot, lastMessage, firstMessage, className }) => (
