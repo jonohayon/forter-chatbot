@@ -5,7 +5,7 @@ import { Box, TextInput } from 'grommet'
 
 const noop = () => {}
 
-const UserInput = ({ onChange, onSubmit, text, className }) => (
+const UserInput = ({ onChange, onSubmit, text, user, className }) => (
   <div>
     <Box
       elevation='large'
@@ -15,9 +15,9 @@ const UserInput = ({ onChange, onSubmit, text, className }) => (
         value={text}
         size='medium'
         plain
-        placeholder='Ask a question...'
+        placeholder={user ? 'Ask a question...' : 'Please state your name'}
         onChange={onChange}
-        onKeyUp={({ key }) => key === 'Enter' ? onSubmit(text) : noop()}
+        onKeyUp={({ key }) => key === 'Enter' ? onSubmit(text, user) : noop()}
       />
     </Box>
   </div>
@@ -26,6 +26,7 @@ const UserInput = ({ onChange, onSubmit, text, className }) => (
 UserInput.propTypes = {
   className: PropTypes.string,
   text: PropTypes.string,
+  user: PropTypes.string,
   onChange: PropTypes.func,
   onSubmit: PropTypes.func
 }

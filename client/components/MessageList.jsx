@@ -4,7 +4,7 @@ import Message from 'components/Message.jsx'
 import styled from 'styled-components'
 import { Box, InfiniteScroll } from 'grommet'
 
-const createMessageData = messages => {
+const createMessageData = (messages, ownUser) => {
   const toRender = []; let currentUser = ''
   for (let i = 0; i < messages.length; i++) {
     const { userId: user, body: message } = messages[i]
@@ -21,7 +21,7 @@ const createMessageData = messages => {
       message,
       firstMessage: userChange,
       lastMessage: false,
-      isOwn: false, // TODO - Implement isOwn
+      isOwn: user === ownUser,
       isBot: false, // TODO - Implement isBot
       key: i
     })
@@ -37,7 +37,7 @@ const Container = styled(Box)`
   &::-webkit-scrollbar { width: 0 !important }
 `
 
-const MessageList = ({ messages }) => (
+const MessageList = ({ messages, user }) => (
   <Container
     pad={{ top: 'small', horizontal: 'small' }}
     width='large'
@@ -46,7 +46,7 @@ const MessageList = ({ messages }) => (
     {
       messages.length > 0 &&
       <InfiniteScroll
-        items={createMessageData(messages)}
+        items={createMessageData(messages, user)}
       >
         {(mprops) => <Message {...mprops} />}
       </InfiniteScroll>
@@ -55,7 +55,8 @@ const MessageList = ({ messages }) => (
 )
 
 MessageList.propTypes = {
-  messages: PropTypes.arrayOf(PropTypes.object).isRequired
+  messages: PropTypes.arrayOf(PropTypes.object).isRequired,
+  user: PropTypes.string.isRequired
 }
 
 export default MessageList

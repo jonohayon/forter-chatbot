@@ -4,23 +4,29 @@ import NavBar from 'components/NavBar.jsx'
 import MessageList from 'components/MessageList.jsx'
 import UserInput from 'components/UserInput.jsx'
 import { getMessages, subscribeToMessages } from 'actions/messages.js'
-import { onChange as onInputChange, postQuestion } from 'actions/input.js'
+import { onChange as onInputChange, onSubmit as onInputSubmit, postQuestion } from 'actions/input.js'
+import { setUser } from 'actions/user.js'
 import { connect } from 'react-redux'
 import { Box } from 'grommet'
 
 class Chat extends Component {
-  componentDidMount () {
-    this.props.getMessages()
-    this.props.subscribeToMessages()
-  }
-
   render () {
     const {
+      ownUser,
+      setUser,
       messages,
       currentText,
+      getMessages,
       onInputChange,
-      onInputSubmit
+      postQuestion,
+      subscribeToMessages,
+      messagesInitializing
     } = this.props
+
+    if (ownUser && !messagesInitializing) {
+      getMessages()
+      subscribeToMessages()
+    }
 
     return (
       <Box fill background='light-3'>
@@ -32,12 +38,13 @@ class Chat extends Component {
           direction='column'
           alignSelf='center'
         >
-          <MessageList messages={messages} />
+          <MessageList messages={messages} user={ownUser} />
 
           <UserInput
             text={currentText}
+            user={ownUser}
             onChange={onInputChange}
-            onSubmit={onInputSubmit}
+            onSubmit={ownUser ? postQuestion : setUser}
           />
         </Box>
       </Box>
@@ -48,25 +55,34 @@ class Chat extends Component {
 Chat.propTypes = {
   messages: PropTypes.arrayOf(PropTypes.object).isRequired,
   currentText: PropTypes.string,
+  ownUser: PropTypes.string,
+  messagesInitializing: PropTypes.bool,
   getMessages: PropTypes.func.isRequired,
   subscribeToMessages: PropTypes.func.isRequired,
   onInputChange: PropTypes.func.isRequired,
-  onInputSubmit: PropTypes.func.isRequired
+  postQuestion: PropTypes.func.isRequired,
+  setUser: PropTypes.func.isRequired
 }
 
-const mapStateToProps = ({ messages, input }) => ({
+const mapStateToProps = ({ messages, input, user }) => ({
   messages: messages.messages,
-  currentText: input.text
+  currentText: input.text,
+  messagesInitializing: messages.isInitializing,
+  ownUser: user.user
 })
 
-const actionCreators = {
-  getMessages,
-  subscribeToMessages,
-  onInputChange,
-  onInputSubmit: postQuestion
-}
+const mapDispatchToProps = dispatch => ({
+  getMessages: () => dispatch(getMessages()),
+  subscribeToMessages: () => dispatch(subscribeToMessages()),
+  onInputChange: event => dispatch(onInputChange(event)),
+  postQuestion: (text, user) => dispatch(postQuestion(text, user)),
+  setUser: (user, _) => {
+    dispatch(setUser(user))
+    dispatch(onInputSubmit)
+  }
+})
 
 export default connect(
   mapStateToProps,
-  actionCreators
+  mapDispatchToProps
 )(Chat)
