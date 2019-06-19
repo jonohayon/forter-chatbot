@@ -4,7 +4,6 @@ const { json } = require('body-parser')
 const {
   createMessage,
   getNMessages,
-  getLastMessage,
   listenForMessages,
   stopListening
 } = require('./messages')
@@ -29,14 +28,7 @@ app.get('/messages', (req, res, next) => {
     'content-type': 'text/event-stream'
   })
 
-  listenForMessages(() =>
-    getLastMessage()
-      .then(message => res.write(`event: message\ndata: ${JSON.stringify(message)}\n\n`))
-      .catch(err => {
-        stopListening()
-        return next(err)
-      })
-  )
+  listenForMessages(message => res.write(`event: message\ndata: ${message}\n\n`))
 
   req.on('close', () => {
     stopListening()

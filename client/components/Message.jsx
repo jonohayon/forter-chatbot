@@ -41,8 +41,4 @@ Message.defaultProps = {
   firstMessage: false
 }
 
-export default styled(Message)`
-  @media (min-width: 768px) {
-    min-height: 48px;
-  }
-`
+export default Message

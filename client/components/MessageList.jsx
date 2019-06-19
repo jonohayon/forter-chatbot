@@ -38,6 +38,7 @@ const createMessageData = (messages, ownUser) => {
 
 const Container = styled(Box)`
   display: block;
+  ${props => props.user && 'flex: 1;'}
   &::-webkit-scrollbar { width: 0 !important }
 `
 
@@ -46,11 +47,13 @@ const MessageList = ({ messages, user }) => (
     pad={{ top: 'small', horizontal: 'small' }}
     width='large'
     overflow={{ horizontal: 'hidden', vertical: 'auto' }}
+    user={user}
   >
     {
       messages.length > 0 &&
       <InfiniteScroll
         items={createMessageData(messages, user)}
+        show={messages.length - 1}
       >
         {(mprops) => <Message {...mprops} />}
       </InfiniteScroll>
