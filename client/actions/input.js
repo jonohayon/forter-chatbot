@@ -7,7 +7,7 @@ export const onChange = event => ({
 
 export const onSubmit = { type: 'SUBMIT' }
 
-export const postQuestion = text => dispatch => axios.post('/message', {
-  user: 'jonathan',
+export const postQuestion = (text, user) => dispatch => axios.post('/message', {
+  user,
   message: text
 }).then(() => dispatch(onSubmit))
